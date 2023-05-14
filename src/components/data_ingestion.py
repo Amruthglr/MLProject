@@ -1,10 +1,11 @@
 import os
 import sys
-from src.exception import CustomException
-from src.logger import logging
+from exception import CustomException
+from logger import logging
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
+
 
 @dataclass
 class DataIngestionConfig:
@@ -22,6 +23,8 @@ class DataIngestion:
         try:
             df = pd.read_csv("notebook\data\StudentsPerformance.csv")
             logging.info("Read the data as Data Frame")
+
+            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
 
             df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
             logging.info("Created csv file of the data frame")

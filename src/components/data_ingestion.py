@@ -8,6 +8,10 @@ from dataclasses import dataclass
 # from components.data_transformation import DataTransformationConfig
 # from components.data_transformation import DataTransformation
 import data_transformation
+import model_trainer
+
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
 @dataclass
@@ -53,3 +57,7 @@ if  __name__ == "__main__":
 
     datatransformation = data_transformation.DataTransformation()
     train_arr, test_arr, _ = datatransformation.initate_data_transformation(train_data, test_data)
+
+    modeltrainer = model_trainer.ModelTrainer()
+    print(modeltrainer.initate_model_trainer(train_arr, test_arr))
+

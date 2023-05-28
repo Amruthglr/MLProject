@@ -87,7 +87,7 @@ class ModelTrainer:
 
             # To ge the best model name
             model_report = {k: v for k, v in sorted(model_report.items(), key=lambda item: item[1])}
-            best_model_name = list(model_report.keys())[0]
+            best_model_name = list(model_report.keys())[-1]
             best_model = models[best_model_name]
 
             if best_score < 0.6:

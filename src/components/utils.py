@@ -1,8 +1,9 @@
 import os
 import pickle
+import dill
 import numpy as np
 import pandas as pd
-from exception import CustomException
+from src.components.exception import CustomException
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import r2_score
 import sys
@@ -23,36 +24,6 @@ def save_object(file_path, obj):
     except Exception as e:
         raise CustomException(e, sys)
     
-# def evaluate_models(X_train, y_train, X_test, y_test, models, param):
-
-#     try:
-#         reports = {}
-
-#         for i in range(len(list(models))):
-
-#             model  = list(models.values())[i]
-#             params = param[list(params.keys())[i]]
-
-#             gs = GridSearchCV(model, params, cv=3)
-#             gs.fit(X_train, y_train)
-
-#             model.set_params(**gs.best_params_)
-#             model.fit(X_train, y_train)
-
-#             y_train_predict = model.predict(X_train)
-#             y_test_predict = model.predict(X_test)
-
-#             train_model_score = r2_score(y_train, y_train_predict)
-#             test_model_score = r2_score(y_test, y_test_predict)
-
-#             reports[list(models.keys())[i]] = test_model_score
-#             print(list(models.keys())[i])
-#             # print(reports)
-#             return reports
-
-#     except Exception as e:
-#         CustomException(e, sys)
-
 def evaluate_models(X_train, y_train,X_test,y_test,models,param):
     try:
         reports = {}
@@ -81,6 +52,13 @@ def evaluate_models(X_train, y_train,X_test,y_test,models,param):
 
         return reports
 
+    except Exception as e:
+        raise CustomException(e, sys)
+
+def load_object(file_path):
+    try:
+        with open(file_path, 'rb') as file_obj:
+            return pickle.load(file_obj)
     except Exception as e:
         raise CustomException(e, sys)
 
